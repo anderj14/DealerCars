@@ -85,3 +85,5 @@ C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\obj\Deb
 C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\obj\Debug\net6.0\DealerCarsApp.pdb
 C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\obj\Debug\net6.0\DealerCarsApp.genruntimeconfig.cache
 C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\obj\Debug\net6.0\ref\DealerCarsApp.dll
+C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Ander\Documents\Development\C#\.NET\DealerCarsApp\DealerCarsApp\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -3,8 +3,7 @@
     public class Models: BaseEntity
     {
         public string ModelName { get; set; }
-        public Types Type { get; set; }
-        public ICollection<VehicleModel> VehicleModels { get; set; }
-
+        public Brand Brand { get; set; }
+        public ICollection<Types> Types { get; set; }
     }
 }

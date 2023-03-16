@@ -11,7 +11,6 @@
         public Engine Engine { get; set; }
         public DriveTrain DriveTrain { get; set; }
         public ICollection<VehicleBrand> VehicleBrands { get; set;}
-        public ICollection<VehicleModel> VehicleModels { get; set;}
         public ICollection<VehicleFuelType> VehicleFuelTypes { get; set;}
     }
 }

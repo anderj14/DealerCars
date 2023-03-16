@@ -47,6 +47,7 @@ namespace DealerCarsApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BrandName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -113,16 +114,16 @@ namespace DealerCarsApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ModelName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("BrandId");
 
                     b.ToTable("Models");
                 });
@@ -152,10 +153,15 @@ namespace DealerCarsApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TypeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModelId");
 
                     b.ToTable("Types");
                 });
@@ -203,7 +209,7 @@ namespace DealerCarsApp.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("vehicles");
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.VehicleBrand", b =>
@@ -236,30 +242,26 @@ namespace DealerCarsApp.Migrations
                     b.ToTable("VehicleFuelTypes");
                 });
 
-            modelBuilder.Entity("DealerCarsApp.Model.VehicleModel", b =>
-                {
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("VehicleId", "ModelId");
-
-                    b.HasIndex("ModelId");
-
-                    b.ToTable("VehicleModels");
-                });
-
             modelBuilder.Entity("DealerCarsApp.Model.Models", b =>
                 {
-                    b.HasOne("DealerCarsApp.Model.Types", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
+                    b.HasOne("DealerCarsApp.Model.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Type");
+                    b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("DealerCarsApp.Model.Types", b =>
+                {
+                    b.HasOne("DealerCarsApp.Model.Models", "Model")
+                        .WithMany("Types")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.Vehicle", b =>
@@ -335,25 +337,6 @@ namespace DealerCarsApp.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("DealerCarsApp.Model.VehicleModel", b =>
-                {
-                    b.HasOne("DealerCarsApp.Model.Models", "Model")
-                        .WithMany("VehicleModels")
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DealerCarsApp.Model.Vehicle", "Vehicle")
-                        .WithMany("VehicleModels")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Model");
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("DealerCarsApp.Model.BodyStyle", b =>
                 {
                     b.Navigation("Vehicles");
@@ -361,6 +344,8 @@ namespace DealerCarsApp.Migrations
 
             modelBuilder.Entity("DealerCarsApp.Model.Brand", b =>
                 {
+                    b.Navigation("Models");
+
                     b.Navigation("VehicleBrands");
                 });
 
@@ -381,7 +366,7 @@ namespace DealerCarsApp.Migrations
 
             modelBuilder.Entity("DealerCarsApp.Model.Models", b =>
                 {
-                    b.Navigation("VehicleModels");
+                    b.Navigation("Types");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.Status", b =>
@@ -394,8 +379,6 @@ namespace DealerCarsApp.Migrations
                     b.Navigation("VehicleBrands");
 
                     b.Navigation("VehicleFuelTypes");
-
-                    b.Navigation("VehicleModels");
                 });
 #pragma warning restore 612, 618
         }

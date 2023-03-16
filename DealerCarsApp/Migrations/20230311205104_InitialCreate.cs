@@ -29,7 +29,7 @@ namespace DealerCarsApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,20 +89,27 @@ namespace DealerCarsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Types",
+                name: "Models",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ModelName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Types", x => x.Id);
+                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Models_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "vehicles",
+                name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -118,27 +125,27 @@ namespace DealerCarsApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_vehicles", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_vehicles_BodyStyles_BodyStyleId",
+                        name: "FK_Vehicles_BodyStyles_BodyStyleId",
                         column: x => x.BodyStyleId,
                         principalTable: "BodyStyles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_vehicles_DriveTrains_DriveTrainId",
+                        name: "FK_Vehicles_DriveTrains_DriveTrainId",
                         column: x => x.DriveTrainId,
                         principalTable: "DriveTrains",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_vehicles_Engines_EngineId",
+                        name: "FK_Vehicles_Engines_EngineId",
                         column: x => x.EngineId,
                         principalTable: "Engines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_vehicles_Status_StatusId",
+                        name: "FK_Vehicles_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id",
@@ -146,21 +153,21 @@ namespace DealerCarsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Models",
+                name: "Types",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ModelName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
+                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.PrimaryKey("PK_Types", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Models_Types_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "Types",
+                        name: "FK_Types_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -182,9 +189,9 @@ namespace DealerCarsApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VehicleBrands_vehicles_VehicleId",
+                        name: "FK_VehicleBrands_Vehicles_VehicleId",
                         column: x => x.VehicleId,
-                        principalTable: "vehicles",
+                        principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -206,41 +213,22 @@ namespace DealerCarsApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VehicleFuelTypes_vehicles_VehicleId",
+                        name: "FK_VehicleFuelTypes_Vehicles_VehicleId",
                         column: x => x.VehicleId,
-                        principalTable: "vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehicleModels",
-                columns: table => new
-                {
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleModels", x => new { x.VehicleId, x.ModelId });
-                    table.ForeignKey(
-                        name: "FK_VehicleModels_Models_ModelId",
-                        column: x => x.ModelId,
-                        principalTable: "Models",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VehicleModels_vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "vehicles",
+                        principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_TypeId",
+                name: "IX_Models_BrandId",
                 table: "Models",
-                column: "TypeId");
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Types_ModelId",
+                table: "Types",
+                column: "ModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleBrands_BrandId",
@@ -253,28 +241,23 @@ namespace DealerCarsApp.Migrations
                 column: "FuelTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleModels_ModelId",
-                table: "VehicleModels",
-                column: "ModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_vehicles_BodyStyleId",
-                table: "vehicles",
+                name: "IX_Vehicles_BodyStyleId",
+                table: "Vehicles",
                 column: "BodyStyleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vehicles_DriveTrainId",
-                table: "vehicles",
+                name: "IX_Vehicles_DriveTrainId",
+                table: "Vehicles",
                 column: "DriveTrainId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vehicles_EngineId",
-                table: "vehicles",
+                name: "IX_Vehicles_EngineId",
+                table: "Vehicles",
                 column: "EngineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vehicles_StatusId",
-                table: "vehicles",
+                name: "IX_Vehicles_StatusId",
+                table: "Vehicles",
                 column: "StatusId");
         }
 
@@ -282,28 +265,25 @@ namespace DealerCarsApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Types");
+
+            migrationBuilder.DropTable(
                 name: "VehicleBrands");
 
             migrationBuilder.DropTable(
                 name: "VehicleFuelTypes");
 
             migrationBuilder.DropTable(
-                name: "VehicleModels");
-
-            migrationBuilder.DropTable(
-                name: "Brands");
+                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "Fuel");
 
             migrationBuilder.DropTable(
-                name: "Models");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "vehicles");
-
-            migrationBuilder.DropTable(
-                name: "Types");
+                name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "BodyStyles");

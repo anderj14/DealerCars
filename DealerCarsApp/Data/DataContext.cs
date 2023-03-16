@@ -5,20 +5,19 @@ namespace DealerCarsApp.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options): base(options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<BodyStyle> BodyStyles { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<DriveTrain> DriveTrains { get; set;}
+        public DbSet<DriveTrain> DriveTrains { get; set; }
         public DbSet<Engine> Engines { get; set; }
-        public DbSet<Fuel> Fuel { get; set;}
+        public DbSet<Fuel> Fuel { get; set; }
         public DbSet<Models> Models { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Types> Types { get; set; }
-        public DbSet<Vehicle> vehicles { get; set; }
-        public DbSet<VehicleBrand> VehicleBrands { get; set;}
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleBrand> VehicleBrands { get; set; }
         public DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
-        public DbSet<VehicleModel> VehicleModels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,17 +42,6 @@ namespace DealerCarsApp.Data
                 .HasOne(ft => ft.Fuel)
                 .WithMany(vft => vft.VehicleFuelTypes)
                 .HasForeignKey(ft => ft.FuelTypeId);
-
-            modelBuilder.Entity<VehicleModel>()
-                .HasKey(vm => new { vm.VehicleId, vm.ModelId });
-            modelBuilder.Entity<VehicleModel>()
-                .HasOne(v => v.Vehicle)
-                .WithMany(vm => vm.VehicleModels)
-                .HasForeignKey(v => v.VehicleId);
-            modelBuilder.Entity<VehicleModel>()
-                .HasOne(m => m.Model)
-                .WithMany(vm => vm.VehicleModels)
-                .HasForeignKey(b => b.ModelId);
         }
 
     }

@@ -21,70 +21,128 @@ namespace DealerCarsApp.Data
                     {
                         Vehicle = new Vehicle()
                         {
-                            Name = "Toyota Corolla LE",
-                            Year = 2011,
-                            Price = 12000,
-                            Mileage = 122000,
+                            Name = "Jeep Wrangler Unlimited Sport",
+                            Year = 2020,
+                            Price = 40000,
+                            Mileage = 40000,
                             Status = new Status()
                             {
                                 StatusName = "Used"
                             },
                             Engine = new Engine()
                             {
-                                EngineType = "Gasoline"
+                                EngineType = "4 Cylinders"
                             },
                             BodyStyle = new BodyStyle()
                             {
-                                BodyType = "Sedan"
+                                BodyType = "Jeep"
                             },
                             DriveTrain = new DriveTrain()
                             {
-                                DriveTrainType = "Automatic"
+                                DriveTrainType = "Mecanic or Automatic"
                             },
-                            VehicleModels = new List<VehicleModel>()
-                            {
-                                new VehicleModel(){
-                                    Model = new Models()
-                                    {
-                                        ModelName = "Corolla",
-                                        Type = new Types()
-                                        {
-                                            TypeName = "LE"
-                                        }
-                                    }
-                                }
-                            },
+
                             VehicleFuelTypes = new List<VehicleFuelType>()
                             {
                                 new VehicleFuelType()
                                 {
                                     Fuel = new Fuel()
                                     {
-                                        FuelType = "Gas"
+                                        FuelType = "Gasoline"
                                     }
                                 }
                             }
                         },
                         Brand = new Brand()
                         {
-                            BrandName = "Toyota"
+                            BrandName = "Jeep",
+                            Models = new List<Models>()
+                            {
+                                new Models()
+                                {
+                                    ModelName = "Wrangler",
+                                    Types = new List<Types>()
+                                    {
+                                        new Types()
+                                        {
+                                            TypeName = "Unlimited Sport"
+                                        }
+                                    }
+
+                                }
+                            }
                         }
                     }, // Second car
                     new VehicleBrand()
                     {
                         Vehicle = new Vehicle()
                         {
-                            Name = "Honda Civic SI",
+                            Name = "Toyota Prado TX",
                             Year = 2015,
-                            Price = 15000,
-                            Mileage = 80000,
+                            Price = 25000,
+                            Mileage = 70000,
                             Status = new Status()
                             {
                                 StatusName = "Used"
                             },
                             Engine = new Engine()
                             {
-                                EngineType = "Gasoline"
+                                EngineType = "6 Cylinders"
+                            },
+                            BodyStyle = new BodyStyle()
+                            {
+                                BodyType = "Jeepeta"
+                            },
+                            DriveTrain = new DriveTrain()
+                            {
+                                DriveTrainType = "Automatica"
+                            },
+                            VehicleFuelTypes = new List<VehicleFuelType>()
+                            {
+                                new VehicleFuelType()
+                                {
+                                    Fuel = new Fuel()
+                                    {
+                                        FuelType = "Deseil"
+                                    }
+                                }
+                            }
+                        },
+                        Brand = new Brand()
+                        {
+                            BrandName = "Toyota",
+                            Models = new List<Models>()
+                            {
+                                new Models()
+                                {
+                                    ModelName = "Prado",
+                                    Types = new List<Types>()
+                                    {
+                                        new Types()
+                                        {
+                                            TypeName = "TX"
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }, //Third car
+                    new VehicleBrand()
+                    {
+                        Vehicle = new Vehicle()
+                        {
+                            Name = "Hyundai Sonata LF",
+                            Year = 2023,
+                            Price = 30000,
+                            Mileage = 0,
+                            Status = new Status()
+                            {
+                                StatusName = "New"
+                            },
+                            Engine = new Engine()
+                            {
+                                EngineType = "5 Cylinders"
                             },
                             BodyStyle = new BodyStyle()
                             {
@@ -92,20 +150,7 @@ namespace DealerCarsApp.Data
                             },
                             DriveTrain = new DriveTrain()
                             {
-                                DriveTrainType = "Mechanical"
-                            },
-                            VehicleModels = new List<VehicleModel>()
-                            {
-                                new VehicleModel(){
-                                    Model = new Models()
-                                    {
-                                        ModelName = "Civic",
-                                        Type = new Types()
-                                        {
-                                            TypeName = "SI"
-                                        }
-                                    }
-                                }
+                                DriveTrainType = "Mecanic"
                             },
                             VehicleFuelTypes = new List<VehicleFuelType>()
                             {
@@ -113,67 +158,29 @@ namespace DealerCarsApp.Data
                                 {
                                     Fuel = new Fuel()
                                     {
-                                        FuelType = "Gas"
+                                        FuelType = "Gas GLP"
                                     }
                                 }
                             }
                         },
                         Brand = new Brand()
                         {
-                            BrandName = "Honda"
-                        }
-                    }, //Thirth car
-                    new VehicleBrand()
-                    {
-                        Vehicle = new Vehicle()
-                        {
-                            Name = "Honda Crv Touring",
-                            Year = 2016,
-                            Price = 25000,
-                            Mileage = 64000,
-                            Status = new Status()
+                            BrandName = "Hyundai",
+                            Models = new List<Models>()
                             {
-                                StatusName = "Used"
-                            },
-                            Engine = new Engine()
-                            {
-                                EngineType = "Gasoline"
-                            },
-                            BodyStyle = new BodyStyle()
-                            {
-                                BodyType = "SUV"
-                            },
-                            DriveTrain = new DriveTrain()
-                            {
-                                DriveTrainType = "Automatic"
-                            },
-                            VehicleModels = new List<VehicleModel>()
-                            {
-                                new VehicleModel(){
-                                    Model = new Models()
+                                new Models()
+                                {
+                                    ModelName = "Sonata",
+                                    Types = new List<Types>()
                                     {
-                                        ModelName = "Crv",
-                                        Type = new Types()
+                                        new Types()
                                         {
-                                            TypeName = "Touring"
+                                            TypeName = "LF"
                                         }
                                     }
-                                }
-                            },
-                            VehicleFuelTypes = new List<VehicleFuelType>()
-                            {
-                                new VehicleFuelType()
-                                {
-                                    Fuel = new Fuel()
-                                    {
-                                        FuelType = "Gas"
-                                    }
+
                                 }
                             }
-                        },
-                        Brand = new Brand()
-                        {
-                            BrandName = "Honda"
                         }
                     }
                 };
