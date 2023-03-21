@@ -13,6 +13,10 @@ namespace DealerCarsApp.Helper
             CreateMap<Fuel, FuelDto>();
             CreateMap<Models, ModelDto>();
             CreateMap<Types, TypesDto>();
+            CreateMap<BodyStyle, BodyStyleDto>();
+            CreateMap<DriveTrain, DriveTrainDto>();
+            CreateMap<Engine, EngineDto>();
+            CreateMap<Status, StatusDto>();
         }
     }
 }

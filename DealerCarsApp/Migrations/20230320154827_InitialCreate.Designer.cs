@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DealerCarsApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230311205104_InitialCreate")]
+    [Migration("20230320154827_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -180,6 +180,9 @@ namespace DealerCarsApp.Migrations
                     b.Property<int>("BodyStyleId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DriveTrainId")
                         .HasColumnType("int");
 
@@ -206,6 +209,8 @@ namespace DealerCarsApp.Migrations
 
                     b.HasIndex("BodyStyleId");
 
+                    b.HasIndex("BrandId");
+
                     b.HasIndex("DriveTrainId");
 
                     b.HasIndex("EngineId");
@@ -213,21 +218,6 @@ namespace DealerCarsApp.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Vehicles");
-                });
-
-            modelBuilder.Entity("DealerCarsApp.Model.VehicleBrand", b =>
-                {
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.HasKey("VehicleId", "BrandId");
-
-                    b.HasIndex("BrandId");
-
-                    b.ToTable("VehicleBrands");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.VehicleFuelType", b =>
@@ -275,6 +265,12 @@ namespace DealerCarsApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DealerCarsApp.Model.Brand", "Brand")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DealerCarsApp.Model.DriveTrain", "DriveTrain")
                         .WithMany("Vehicles")
                         .HasForeignKey("DriveTrainId")
@@ -295,30 +291,13 @@ namespace DealerCarsApp.Migrations
 
                     b.Navigation("BodyStyle");
 
+                    b.Navigation("Brand");
+
                     b.Navigation("DriveTrain");
 
                     b.Navigation("Engine");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("DealerCarsApp.Model.VehicleBrand", b =>
-                {
-                    b.HasOne("DealerCarsApp.Model.Brand", "Brand")
-                        .WithMany("VehicleBrands")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DealerCarsApp.Model.Vehicle", "Vehicle")
-                        .WithMany("VehicleBrands")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.VehicleFuelType", b =>
@@ -349,7 +328,7 @@ namespace DealerCarsApp.Migrations
                 {
                     b.Navigation("Models");
 
-                    b.Navigation("VehicleBrands");
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("DealerCarsApp.Model.DriveTrain", b =>
@@ -379,8 +358,6 @@ namespace DealerCarsApp.Migrations
 
             modelBuilder.Entity("DealerCarsApp.Model.Vehicle", b =>
                 {
-                    b.Navigation("VehicleBrands");
-
                     b.Navigation("VehicleFuelTypes");
                 });
 #pragma warning restore 612, 618

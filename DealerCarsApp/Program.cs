@@ -16,6 +16,10 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IFuelRepository, FuelRepository>();
 builder.Services.AddScoped<IModelRepository, ModelRepository>();
 builder.Services.AddScoped<ITypesRepository, TypesRepository>();
+builder.Services.AddScoped<IBodyStyleRepository, BodyStyleRepository>();
+builder.Services.AddScoped<IDriveTrainRepository, DriveTrainRepository>();
+builder.Services.AddScoped<IEngineRepository, EngineRepository>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

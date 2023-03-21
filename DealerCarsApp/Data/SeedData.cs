@@ -13,11 +13,11 @@ namespace DealerCarsApp.Data
 
         public void SeedDataContext()
         {
-            if (!_context.VehicleBrands.Any())
+            if (!_context.VehicleFuelTypes.Any())
             {
-                var vehicleBrands = new List<VehicleBrand>()
+                var vehicleFuelTypes = new List<VehicleFuelType>()
                 {
-                    new VehicleBrand()
+                    new VehicleFuelType()
                     {
                         Vehicle = new Vehicle()
                         {
@@ -27,7 +27,7 @@ namespace DealerCarsApp.Data
                             Mileage = 40000,
                             Status = new Status()
                             {
-                                StatusName = "Used"
+                                StatusName = "Crashed"
                             },
                             Engine = new Engine()
                             {
@@ -41,39 +41,33 @@ namespace DealerCarsApp.Data
                             {
                                 DriveTrainType = "Mecanic or Automatic"
                             },
-
-                            VehicleFuelTypes = new List<VehicleFuelType>()
+                            Brand = new Brand()
                             {
-                                new VehicleFuelType()
+                                BrandName = "Jeep",
+                                Models = new List<Models>()
                                 {
-                                    Fuel = new Fuel()
+                                    new Models()
                                     {
-                                        FuelType = "Gasoline"
+                                        ModelName = "Wrangler",
+                                        Types = new List<Types>()
+                                        {
+                                            new Types()
+                                            {
+                                                TypeName = "Unlimited Sport"
+                                            }
+                                        }
+
                                     }
                                 }
                             }
                         },
-                        Brand = new Brand()
+                        Fuel = new Fuel()
                         {
-                            BrandName = "Jeep",
-                            Models = new List<Models>()
-                            {
-                                new Models()
-                                {
-                                    ModelName = "Wrangler",
-                                    Types = new List<Types>()
-                                    {
-                                        new Types()
-                                        {
-                                            TypeName = "Unlimited Sport"
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    }, // Second car
-                    new VehicleBrand()
+                            FuelType = "Gasoline",
+                        },
+                    }, 
+                    // Second car
+                    new VehicleFuelType()
                     {
                         Vehicle = new Vehicle()
                         {
@@ -97,38 +91,33 @@ namespace DealerCarsApp.Data
                             {
                                 DriveTrainType = "Automatica"
                             },
-                            VehicleFuelTypes = new List<VehicleFuelType>()
+                            Brand = new Brand()
                             {
-                                new VehicleFuelType()
+                                BrandName = "Toyota",
+                                Models = new List<Models>()
                                 {
-                                    Fuel = new Fuel()
+                                    new Models()
                                     {
-                                        FuelType = "Deseil"
+                                        ModelName = "Prado",
+                                        Types = new List<Types>()
+                                        {
+                                            new Types()
+                                            {
+                                                TypeName = "TX"
+                                            }
+                                        }
+
                                     }
                                 }
                             }
                         },
-                        Brand = new Brand()
+                        Fuel = new Fuel()
                         {
-                            BrandName = "Toyota",
-                            Models = new List<Models>()
-                            {
-                                new Models()
-                                {
-                                    ModelName = "Prado",
-                                    Types = new List<Types>()
-                                    {
-                                        new Types()
-                                        {
-                                            TypeName = "TX"
-                                        }
-                                    }
+                            FuelType = "Deseil",
+                        },
 
-                                }
-                            }
-                        }
                     }, //Third car
-                    new VehicleBrand()
+                    new VehicleFuelType()
                     {
                         Vehicle = new Vehicle()
                         {
@@ -152,39 +141,33 @@ namespace DealerCarsApp.Data
                             {
                                 DriveTrainType = "Mecanic"
                             },
-                            VehicleFuelTypes = new List<VehicleFuelType>()
+                            Brand = new Brand()
                             {
-                                new VehicleFuelType()
+                                BrandName = "Hyundai",
+                                Models = new List<Models>()
                                 {
-                                    Fuel = new Fuel()
+                                    new Models()
                                     {
-                                        FuelType = "Gas GLP"
+                                        ModelName = "Sonata",
+                                        Types = new List<Types>()
+                                        {
+                                            new Types()
+                                            {
+                                                TypeName = "LF"
+                                            }
+                                        }
                                     }
                                 }
                             }
                         },
-                        Brand = new Brand()
+                        Fuel = new Fuel()
                         {
-                            BrandName = "Hyundai",
-                            Models = new List<Models>()
-                            {
-                                new Models()
-                                {
-                                    ModelName = "Sonata",
-                                    Types = new List<Types>()
-                                    {
-                                        new Types()
-                                        {
-                                            TypeName = "LF"
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
+                            FuelType = "Gas GLP",
+                        },
+                        
                     }
                 };
-                _context.VehicleBrands.AddRange(vehicleBrands);
+                _context.VehicleFuelTypes.AddRange(vehicleFuelTypes);
                 _context.SaveChanges();
             }
         }

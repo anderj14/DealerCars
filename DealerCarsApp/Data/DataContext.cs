@@ -16,22 +16,10 @@ namespace DealerCarsApp.Data
         public DbSet<Status> Status { get; set; }
         public DbSet<Types> Types { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<VehicleBrand> VehicleBrands { get; set; }
         public DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VehicleBrand>()
-                .HasKey(vb => new { vb.VehicleId, vb.BrandId });
-            modelBuilder.Entity<VehicleBrand>()
-                .HasOne(v => v.Vehicle)
-                .WithMany(vb => vb.VehicleBrands)
-                .HasForeignKey(v => v.VehicleId);
-            modelBuilder.Entity<VehicleBrand>()
-                .HasOne(b => b.Brand)
-                .WithMany(vb => vb.VehicleBrands)
-                .HasForeignKey(b => b.BrandId);
-
             modelBuilder.Entity<VehicleFuelType>()
                 .HasKey(vft => new { vft.VehicleId, vft.FuelTypeId });
             modelBuilder.Entity<VehicleFuelType>()

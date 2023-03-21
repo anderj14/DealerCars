@@ -10,7 +10,7 @@
         public BodyStyle BodyStyle { get; set; }
         public Engine Engine { get; set; }
         public DriveTrain DriveTrain { get; set; }
-        public ICollection<VehicleBrand> VehicleBrands { get; set;}
+        public Brand Brand { get; set; }
         public ICollection<VehicleFuelType> VehicleFuelTypes { get; set;}
     }
 }

@@ -51,7 +51,7 @@ namespace DealerCarsApp.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetVehicleByBrandId(int brandId)
         {
-            var brands = _mapper.Map<List<VehicleDto>>(_brandRepository.GetVehicleByBrand(brandId));
+            var brands = _mapper.Map<List<VehicleDto>>(_brandRepository.GetVehiclesByBrand(brandId));
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

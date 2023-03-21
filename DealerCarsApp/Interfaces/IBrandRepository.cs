@@ -6,7 +6,7 @@ namespace DealerCarsApp.Interfaces
     {
         ICollection<Brand> GetBrands();
         Brand GetBrand(int id);
-        ICollection<Vehicle> GetVehicleByBrand(int brandId);
+        ICollection<Vehicle> GetVehiclesByBrand(int brandId);
         ICollection<Models> GetModelsByBrand(int brandId);
         bool BrandExists(int id);
     }

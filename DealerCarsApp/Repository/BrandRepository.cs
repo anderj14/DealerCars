@@ -33,10 +33,9 @@ namespace DealerCarsApp.Repository
             return _context.Models.Where(m => m.Brand.Id == brandId).ToList();
         }
 
-        public ICollection<Vehicle> GetVehicleByBrand(int brandId)
+        public ICollection<Vehicle> GetVehiclesByBrand(int brandId)
         {
-            return _context.VehicleBrands.Where(b => b.BrandId == brandId).Select(v => v.Vehicle).ToList();
-
+            return _context.Vehicles.Where(b => b.Brand.Id == brandId).ToList();
         }
     }
 }

@@ -121,7 +121,8 @@ namespace DealerCarsApp.Migrations
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     BodyStyleId = table.Column<int>(type: "int", nullable: false),
                     EngineId = table.Column<int>(type: "int", nullable: false),
-                    DriveTrainId = table.Column<int>(type: "int", nullable: false)
+                    DriveTrainId = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,6 +131,12 @@ namespace DealerCarsApp.Migrations
                         name: "FK_Vehicles_BodyStyles_BodyStyleId",
                         column: x => x.BodyStyleId,
                         principalTable: "BodyStyles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -173,30 +180,6 @@ namespace DealerCarsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleBrands",
-                columns: table => new
-                {
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleBrands", x => new { x.VehicleId, x.BrandId });
-                    table.ForeignKey(
-                        name: "FK_VehicleBrands_Brands_BrandId",
-                        column: x => x.BrandId,
-                        principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VehicleBrands_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VehicleFuelTypes",
                 columns: table => new
                 {
@@ -231,11 +214,6 @@ namespace DealerCarsApp.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleBrands_BrandId",
-                table: "VehicleBrands",
-                column: "BrandId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_VehicleFuelTypes_FuelTypeId",
                 table: "VehicleFuelTypes",
                 column: "FuelTypeId");
@@ -244,6 +222,11 @@ namespace DealerCarsApp.Migrations
                 name: "IX_Vehicles_BodyStyleId",
                 table: "Vehicles",
                 column: "BodyStyleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_BrandId",
+                table: "Vehicles",
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_DriveTrainId",
@@ -268,9 +251,6 @@ namespace DealerCarsApp.Migrations
                 name: "Types");
 
             migrationBuilder.DropTable(
-                name: "VehicleBrands");
-
-            migrationBuilder.DropTable(
                 name: "VehicleFuelTypes");
 
             migrationBuilder.DropTable(
@@ -283,10 +263,10 @@ namespace DealerCarsApp.Migrations
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "Brands");
+                name: "BodyStyles");
 
             migrationBuilder.DropTable(
-                name: "BodyStyles");
+                name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "DriveTrains");
