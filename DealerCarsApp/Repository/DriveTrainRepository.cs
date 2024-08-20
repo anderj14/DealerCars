@@ -22,11 +22,6 @@ namespace DealerCarsApp.Repository
             return _context.DriveTrains.Where(d => d.Id == driveTrainId).FirstOrDefault();
         }
 
-        public ICollection<Vehicle> GetVehiclesByDriveTrain(int driveTrainId)
-        {
-            return _context.Vehicles.Where(d => d.DriveTrain.Id == driveTrainId).ToList();
-        }
-
         public bool DriveTrainExists(int driveTrainId)
         {
             return _context.DriveTrains.Any(d => d.Id == driveTrainId);

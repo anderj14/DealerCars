@@ -6,7 +6,6 @@ namespace DealerCarsApp.Interfaces
     {
         ICollection<DriveTrain> GetDriveTrains();
         DriveTrain GetDriveTrain(int driveTrainId);
-        ICollection<Vehicle> GetVehiclesByDriveTrain(int driveTrainId);
         bool DriveTrainExists(int driveTrainId);
     }
 }

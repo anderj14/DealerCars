@@ -10,20 +10,20 @@ namespace DealerCarsApp.Controllers
     [Controller]
     public class TypesController : Controller
     {
-        private readonly ITypesRepository _typesRepository;
+        private readonly ITrimRepository _trimRepository;
         private readonly IMapper _mapper;
 
-        public TypesController(ITypesRepository typesRepository, IMapper mapper)
+        public TypesController(ITrimRepository trimRepository, IMapper mapper)
         {
-            _typesRepository = typesRepository;
+            _trimRepository = trimRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Types>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Trim>))]
         public IActionResult GetTypes()
         {
-            var types = _mapper.Map<List<TypesDto>>(_typesRepository.GetTypes());
+            var types = _mapper.Map<List<TrimDto>>(_trimRepository.GetTrims());
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -31,12 +31,12 @@ namespace DealerCarsApp.Controllers
         }
 
         [HttpGet("{typeId}")]
-        [ProducesResponseType(200, Type = typeof(Types))]
+        [ProducesResponseType(200, Type = typeof(Trim))]
         [ProducesResponseType(400)]
         public IActionResult GetType(int typeId)
         {
-            if (!_typesRepository.GetTypeExists(typeId)) return NotFound();
-            var type = _mapper.Map<TypesDto>(_typesRepository.GetType(typeId));
+            if (!_trimRepository.GetTrimExists(typeId)) return NotFound();
+            var type = _mapper.Map<TrimDto>(_trimRepository.GetTrim(typeId));
             if (!ModelState.IsValid) return BadRequest(ModelState);
             return Ok(type);
         }

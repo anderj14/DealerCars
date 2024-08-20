@@ -1,6 +1,7 @@
 ﻿using DealerCarsApp.Data;
 using DealerCarsApp.Interfaces;
 using DealerCarsApp.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DealerCarsApp.Repository
 {
@@ -8,7 +9,7 @@ namespace DealerCarsApp.Repository
     {
         private readonly DataContext _context;
 
-        public VehicleRepository( DataContext context)
+        public VehicleRepository(DataContext context)
         {
             _context = context;
         }
@@ -30,7 +31,10 @@ namespace DealerCarsApp.Repository
 
         public ICollection<Vehicle> GetVehicles()
         {
-            return _context.Vehicles.OrderBy(v => v.Id).ToList();
+            return _context.Vehicles
+                            .Include(v => v.Brand)
+                            .Include(v => v.Models)
+                            .OrderBy(v => v.Id).ToList();
         }
     }
 }

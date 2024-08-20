@@ -8,11 +8,18 @@ namespace DealerCarsApp.Helper
     {
         public MappingProfiles()
         {
-            CreateMap<Vehicle, VehicleDto>();
+            CreateMap<Vehicle, VehicleDto>()
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName))
+            .ForMember(x => x.Brand, s => s.MapFrom(o => o.Brand.BrandName));
             CreateMap<Brand, BrandDto>();
             CreateMap<Fuel, FuelDto>();
             CreateMap<Models, ModelDto>();
-            CreateMap<Types, TypesDto>();
+            CreateMap<Trim, TrimDto>();
             CreateMap<BodyStyle, BodyStyleDto>();
             CreateMap<DriveTrain, DriveTrainDto>();
             CreateMap<Engine, EngineDto>();

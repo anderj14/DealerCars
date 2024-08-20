@@ -1,8 +1,9 @@
 ﻿using DealerCarsApp.Data;
 using DealerCarsApp.Interfaces;
 using DealerCarsApp.Model;
+using Microsoft.EntityFrameworkCore;
 
-namespace DealerCarsApp.Repository
+namespace DealerCarsApp.Repositories
 {
     public class BrandRepository : IBrandRepository
     {
@@ -13,29 +14,39 @@ namespace DealerCarsApp.Repository
             _context = context;
         }
 
-        public bool BrandExists(int id)
+        public ICollection<Brand> GetBrands()
         {
-            return _context.Brands.Any(b => b.Id == id);
+            return _context.Brands
+                           .Include(b => b.Models)
+                           .ToList();
         }
 
         public Brand GetBrand(int id)
         {
-            return _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-        }
-
-        public ICollection<Brand> GetBrands()
-        {
-            return _context.Brands.ToList();
-        }
-
-        public ICollection<Models> GetModelsByBrand(int brandId)
-        {
-            return _context.Models.Where(m => m.Brand.Id == brandId).ToList();
+            return _context.Brands
+                           .Include(b => b.Models)
+                           .FirstOrDefault(b => b.Id == id);
         }
 
         public ICollection<Vehicle> GetVehiclesByBrand(int brandId)
         {
-            return _context.Vehicles.Where(b => b.Brand.Id == brandId).ToList();
+            return _context.Vehicles
+                           .Where(v => v.BrandId == brandId)
+                           .ToList();
+        }
+
+        public ICollection<Models> GetModelsByBrand(int brandId)
+        {
+            var brand = _context.Brands
+                                .Include(b => b.Models)
+                                .FirstOrDefault(b => b.Id == brandId);
+
+            return brand != null ? brand.Models : new List<Models>();
+        }
+
+        public bool BrandExists(int id)
+        {
+            return _context.Brands.Any(b => b.Id == id);
         }
     }
 }

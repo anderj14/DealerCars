@@ -2,7 +2,7 @@
 {
     public class DriveTrain: BaseEntity
     {
-        public string DriveTrainType { get; set; }
+        public string DriveTrainName { get; set; }
         public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

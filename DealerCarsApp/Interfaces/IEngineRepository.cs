@@ -6,7 +6,6 @@ namespace DealerCarsApp.Interfaces
     {
         ICollection<Engine> GetEngines();
         Engine GetEngine(int engineId);
-        ICollection<Vehicle> GetVehicleByEngine(int engineId);
         bool EngineExists(int engineId);
     }
 }

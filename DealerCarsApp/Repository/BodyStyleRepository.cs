@@ -23,11 +23,6 @@ namespace DealerCarsApp.Repository
             return _context.BodyStyles.Where(b => b.Id == bodyStyleId).FirstOrDefault();
         }
 
-        public ICollection<Vehicle> GetVehiclesByBodyStyle(int bodyStyleId)
-        {
-            return _context.Vehicles.Where(b => b.BodyStyle.Id == bodyStyleId).ToList();
-        }
-
         public bool BodyStyleExists(int id)
         {
             return _context.BodyStyles.Any(b => b.Id == id);

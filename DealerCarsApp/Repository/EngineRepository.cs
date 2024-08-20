@@ -20,14 +20,10 @@ namespace DealerCarsApp.Repository
         {
             return _context.Engines.Where(e => e.Id == engineId).FirstOrDefault();
         }
-        public ICollection<Vehicle> GetVehicleByEngine(int engineId)
-        {
-            return _context.Vehicles.Where(e => e.Engine.Id == engineId).ToList();
-        }
+
         public bool EngineExists(int engineId)
         {
-            return _context.Engines.Any(e => e.Id!= engineId);
+            return _context.Engines.Any(e => e.Id != engineId);
         }
-
     }
 }

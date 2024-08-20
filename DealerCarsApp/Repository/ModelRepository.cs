@@ -26,10 +26,5 @@ namespace DealerCarsApp.Repository
         {
             return _context.Models.ToList();
         }
-
-        public ICollection<Types> GetTypeByModel(int modelId)
-        {
-            return _context.Types.Where(t => t.Model.Id == modelId).ToList();
-        }
     }
 }

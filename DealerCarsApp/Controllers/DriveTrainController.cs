@@ -49,17 +49,5 @@ namespace DealerCarsApp.Controllers
 
             return Ok(driveTrain);
         }
-
-        [HttpGet("vehicle/{driveTrainId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<DriveTrain>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetVehicleByDriveTrainId(int driveTrainId)
-        {
-            var driveTrain = _mapper.Map<List<VehicleDto>>(_driveTrainRepository.GetVehiclesByDriveTrain(driveTrainId));
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            return Ok(driveTrain);
-        }
     }
 }

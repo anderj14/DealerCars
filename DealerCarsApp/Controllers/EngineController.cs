@@ -45,18 +45,5 @@ namespace DealerCarsApp.Controllers
 
             return Ok(engine);
         }
-
-        [HttpGet("vehicle/{engineId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Engine>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetVehicleByEngineId(int engineId)
-        {
-            var engine = _mapper.Map<List<VehicleDto>>(_engineRepository.GetVehicleByEngine(engineId));
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            return Ok(engine);
-        }
-
     }
 }

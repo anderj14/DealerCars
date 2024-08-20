@@ -45,17 +45,5 @@ namespace DealerCarsApp.Controllers
 
             return Ok(status);
         }
-
-        [HttpGet("vehicle/{statusId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Status>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetVehicleByStatusId(int statusId)
-        {
-            var status = _mapper.Map<List<VehicleDto>>(_statusRepository.GetVehiclesByStatus(statusId));
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            return Ok(status);
-        }
     }
 }

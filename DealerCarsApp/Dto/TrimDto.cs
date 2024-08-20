@@ -1,8 +1,8 @@
 ﻿namespace DealerCarsApp.Dto
 {
-    public class TypesDto
+    public class TrimDto
     {
         public int Id { get; set; }
-        public string? TypeName { get; set; }
+        public string TrimName { get; set; }
     }
 }

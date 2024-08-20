@@ -15,20 +15,16 @@ namespace DealerCarsApp.Repository
 
         public ICollection<Status> GetStatuses()
         {
-            return _context.Status.ToList();
+            return _context.Statuses.ToList();
         }
         public Status GetStatus(int statusId)
         {
-            return _context.Status.Where(s => s.Id == statusId).FirstOrDefault();
-        }
-        public ICollection<Vehicle> GetVehiclesByStatus(int statusId)
-        {
-            return  _context.Vehicles.Where(s => s.Status.Id== statusId).ToList();
+            return _context.Statuses.Where(s => s.Id == statusId).FirstOrDefault();
         }
 
         public bool StatusExists(int statusId)
         {
-            return _context.Status.Any();
+            return _context.Statuses.Any();
         }
     }
 }

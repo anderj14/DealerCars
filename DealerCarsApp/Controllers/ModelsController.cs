@@ -46,17 +46,5 @@ namespace DealerCarsApp.Controllers
 
             return Ok(brand);
         }
-
-        [HttpGet("{modelId}/types")]
-        //[ProducesResponseType(200, Type = typeof(IEnumerable<Models>))]
-        //[ProducesResponseType(400)]
-        public IActionResult GetTypeByAModel(int modelId)
-        {
-            var types = _mapper.Map<List<TypesDto>>(_modelRepository.GetTypeByModel(modelId));
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            return Ok(types);
-        }
     }
 }

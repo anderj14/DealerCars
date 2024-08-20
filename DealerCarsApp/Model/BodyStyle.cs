@@ -2,7 +2,7 @@
 {
     public class BodyStyle: BaseEntity
     {
-        public string BodyType { get; set; }
+        public string BodyTypeName { get; set; }
         public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

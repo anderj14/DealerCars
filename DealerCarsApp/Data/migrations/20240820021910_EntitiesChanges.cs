@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace DealerCarsApp.Data.migrations
 {
     /// <inheritdoc />
-    public partial class EntitiesChange : Migration
+    public partial class EntitiesChanges : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +17,7 @@ namespace DealerCarsApp.Data.migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BodyType = table.Column<string>(type: "TEXT", nullable: false)
+                    BodyTypeName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +43,7 @@ namespace DealerCarsApp.Data.migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DriveTrainType = table.Column<string>(type: "TEXT", nullable: false)
+                    DriveTrainName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +56,7 @@ namespace DealerCarsApp.Data.migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EngineType = table.Column<string>(type: "TEXT", nullable: false)
+                    EngineTypeName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,20 +64,20 @@ namespace DealerCarsApp.Data.migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fuel",
+                name: "Fuels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FuelType = table.Column<string>(type: "TEXT", nullable: false)
+                    FuelName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fuel", x => x.Id);
+                    table.PrimaryKey("PK_Fuels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Status",
+                name: "Statuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -85,7 +86,7 @@ namespace DealerCarsApp.Data.migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,20 +110,58 @@ namespace DealerCarsApp.Data.migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Trims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TrimName = table.Column<string>(type: "TEXT", nullable: false),
+                    ModelsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trims_Models_ModelsId",
+                        column: x => x.ModelsId,
+                        principalTable: "Models",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    DateAdded = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Owner = table.Column<string>(type: "TEXT", nullable: false),
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<double>(type: "REAL", nullable: false),
                     Mileage = table.Column<int>(type: "INTEGER", nullable: false),
+                    VIN = table.Column<string>(type: "TEXT", nullable: false),
+                    FuelEfficiency = table.Column<double>(type: "REAL", nullable: false),
+                    Color = table.Column<string>(type: "TEXT", nullable: false),
+                    NumberOfDoors = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExteriorFeatures = table.Column<string>(type: "TEXT", nullable: false),
+                    InteriorFeatures = table.Column<string>(type: "TEXT", nullable: false),
+                    HasABS = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasAirbags = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasStabilityControl = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasTractionControl = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasRearviewCamera = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasBlindSpotMonitoring = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasLaneDepartureWarning = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasAutomaticEmergencyBraking = table.Column<bool>(type: "INTEGER", nullable: false),
+                    BrandId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ModelsId = table.Column<int>(type: "INTEGER", nullable: false),
                     StatusId = table.Column<int>(type: "INTEGER", nullable: false),
                     BodyStyleId = table.Column<int>(type: "INTEGER", nullable: false),
                     EngineId = table.Column<int>(type: "INTEGER", nullable: false),
                     DriveTrainId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BrandId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FuelId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,53 +191,21 @@ namespace DealerCarsApp.Data.migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Vehicles_Status_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Status",
+                        name: "FK_Vehicles_Fuels_FuelId",
+                        column: x => x.FuelId,
+                        principalTable: "Fuels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Types",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TypeName = table.Column<string>(type: "TEXT", nullable: true),
-                    ModelId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Types", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Types_Models_ModelId",
-                        column: x => x.ModelId,
+                        name: "FK_Vehicles_Models_ModelsId",
+                        column: x => x.ModelsId,
                         principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehicleFuelTypes",
-                columns: table => new
-                {
-                    VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FuelTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleFuelTypes", x => new { x.VehicleId, x.FuelTypeId });
                     table.ForeignKey(
-                        name: "FK_VehicleFuelTypes_Fuel_FuelTypeId",
-                        column: x => x.FuelTypeId,
-                        principalTable: "Fuel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VehicleFuelTypes_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
+                        name: "FK_Vehicles_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -209,14 +216,9 @@ namespace DealerCarsApp.Data.migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Types_ModelId",
-                table: "Types",
-                column: "ModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VehicleFuelTypes_FuelTypeId",
-                table: "VehicleFuelTypes",
-                column: "FuelTypeId");
+                name: "IX_Trims_ModelsId",
+                table: "Trims",
+                column: "ModelsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_BodyStyleId",
@@ -239,6 +241,16 @@ namespace DealerCarsApp.Data.migrations
                 column: "EngineId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_FuelId",
+                table: "Vehicles",
+                column: "FuelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_ModelsId",
+                table: "Vehicles",
+                column: "ModelsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_StatusId",
                 table: "Vehicles",
                 column: "StatusId");
@@ -248,16 +260,7 @@ namespace DealerCarsApp.Data.migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Types");
-
-            migrationBuilder.DropTable(
-                name: "VehicleFuelTypes");
-
-            migrationBuilder.DropTable(
-                name: "Models");
-
-            migrationBuilder.DropTable(
-                name: "Fuel");
+                name: "Trims");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");
@@ -266,16 +269,22 @@ namespace DealerCarsApp.Data.migrations
                 name: "BodyStyles");
 
             migrationBuilder.DropTable(
-                name: "Brands");
-
-            migrationBuilder.DropTable(
                 name: "DriveTrains");
 
             migrationBuilder.DropTable(
                 name: "Engines");
 
             migrationBuilder.DropTable(
-                name: "Status");
+                name: "Fuels");
+
+            migrationBuilder.DropTable(
+                name: "Models");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
         }
     }
 }

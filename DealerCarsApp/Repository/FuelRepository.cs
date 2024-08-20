@@ -12,24 +12,27 @@ namespace DealerCarsApp.Repository
         {
             _context = context;
         }
+
         public bool FuelExists(int id)
         {
-            return _context.Fuel.Any(f => f.Id == id);
+            return _context.Fuels.Any(f => f.Id == id);
         }
 
         public Fuel GetFuel(int id)
         {
-            return _context.Fuel.Where(f => f.Id == id).FirstOrDefault();
+            return _context.Fuels.Find(id);
         }
 
         public ICollection<Fuel> GetFuels()
         {
-            return _context.Fuel.ToList();
+            return _context.Fuels.ToList();
         }
 
-        public ICollection<Vehicle> GetVehicleByFuel(int fueldId)
+        public ICollection<Vehicle> GetVehicleByFuel(int fuelId)
         {
-            return _context.VehicleFuelTypes.Where(f => f.FuelTypeId == fueldId).Select(v => v.Vehicle).ToList();
+            return _context.Vehicles
+                           .Where(v => v.FuelId == fuelId)
+                           .ToList();
         }
     }
 }

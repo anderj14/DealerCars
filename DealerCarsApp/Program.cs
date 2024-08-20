@@ -1,5 +1,7 @@
 using DealerCarsApp.Data;
 using DealerCarsApp.Interfaces;
+using DealerCarsApp.Model;
+using DealerCarsApp.Repositories;
 using DealerCarsApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,13 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 //Inject Data
-builder.Services.AddTransient<SeedData>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IFuelRepository, FuelRepository>();
 builder.Services.AddScoped<IModelRepository, ModelRepository>();
-builder.Services.AddScoped<ITypesRepository, TypesRepository>();
+builder.Services.AddScoped<ITrimRepository, TrimRepository>();
 builder.Services.AddScoped<IBodyStyleRepository, BodyStyleRepository>();
 builder.Services.AddScoped<IDriveTrainRepository, DriveTrainRepository>();
 builder.Services.AddScoped<IEngineRepository, EngineRepository>();
@@ -31,18 +32,10 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 
-// Validate data
-if (args.Length == 1 && args[0].ToLower() == "seeddata")
-    SeedData(app);
-
-void SeedData(IHost app)
+using (var scope = app.Services.CreateScope())
 {
-    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-    using (var scope = scopedFactory.CreateScope())
-    {
-        var service = scope.ServiceProvider.GetService<SeedData>();
-        service.SeedDataContext();
-    }
+    var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    dbContext.Database.Migrate(); // Apply any pending migrations
 }
 
 // Configure the HTTP request pipeline.

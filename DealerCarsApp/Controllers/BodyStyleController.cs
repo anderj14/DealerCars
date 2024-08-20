@@ -46,17 +46,5 @@ namespace DealerCarsApp.Controllers
 
             return Ok(bodyStyle);
         }
-
-        [HttpGet("vehicle/{bodyStyleId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<BodyStyle>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetVehicleByBodyStyleId(int bodyStyleId)
-        {
-            var vehicles = _mapper.Map<List<VehicleDto>>(_bodyStyleRepository.GetVehiclesByBodyStyle(bodyStyleId));
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            return Ok(vehicles);
-        }
     }
 }
