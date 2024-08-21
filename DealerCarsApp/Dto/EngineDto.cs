@@ -3,6 +3,6 @@
     public class EngineDto
     {
         public int Id { get; set; }
-        public string EngineType { get; set; }
+        public string EngineTypeName { get; set; }
     }
 }

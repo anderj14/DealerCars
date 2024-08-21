@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using DealerCarsApp.CreateDto;
 using DealerCarsApp.Dto;
 using DealerCarsApp.Interfaces;
 using DealerCarsApp.Model;
-using DealerCarsApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DealerCarsApp.Controllers
@@ -68,6 +68,69 @@ namespace DealerCarsApp.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             return Ok(models);
+        }
+
+        [HttpPost]
+        public ActionResult CreateBrand([FromBody] CreateBrandDto createBrandDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var brand = _mapper.Map<Brand>(createBrandDto);
+
+            try
+            {
+                _brandRepository.CreateBrand(brand);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            var BrandDto = _mapper.Map<BrandDto>(brand);
+            return Ok(BrandDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBrand(int id, CreateBrandDto updateBrandDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (!_brandRepository.BrandExists(id))
+                return NotFound();
+
+            var updateBrand = _mapper.Map<Brand>(updateBrandDto);
+            updateBrand.Id = id;
+
+            try
+            {
+                _brandRepository.UpdateBrand(updateBrand);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            var BrandDto = _mapper.Map<BrandDto>(updateBrand);
+
+            return Ok(BrandDto);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBrand(int id)
+        {
+            if (!_brandRepository.BrandExists(id))
+                return NotFound();
+
+            var brand = _brandRepository.GetBrand(id);
+
+            try
+            {
+                _brandRepository.DeleteBrand(brand);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
     }
 }

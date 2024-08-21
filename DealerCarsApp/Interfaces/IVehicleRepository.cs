@@ -6,7 +6,12 @@ namespace DealerCarsApp.Interfaces
     {
         ICollection<Vehicle> GetVehicles();
         Vehicle GetVehicle(int id);
-        Vehicle GetVehicle(string name);
+        Vehicle GetVIN(string VIN);
         bool GetVehicleExists(int vehicleId);
+
+        void CreateVehicle(Vehicle vehicle);
+        void UpdateVehicle(Vehicle vehicle);
+        void DeleteVehicle(Vehicle vehicle);
+        void Save();
     }
 }

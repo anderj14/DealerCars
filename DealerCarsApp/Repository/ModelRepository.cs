@@ -26,5 +26,28 @@ namespace DealerCarsApp.Repository
         {
             return _context.Models.ToList();
         }
+
+        public void CreateModel(Models models)
+        {
+            _context.Models.Add(models);
+            Save();
+        }
+
+        public void UpdateModel(Models models)
+        {
+            _context.Models.Update(models);
+            Save();
+        }
+
+        public void DeleteModel(Models models)
+        {
+            _context.Models.Remove(models);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

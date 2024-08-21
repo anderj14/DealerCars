@@ -26,5 +26,28 @@ namespace DealerCarsApp.Repository
         {
             return _context.DriveTrains.Any(d => d.Id == driveTrainId);
         }
+
+        public void CreateDriveTrain(DriveTrain driveTrain)
+        {
+            _context.DriveTrains.Add(driveTrain);
+            Save();
+        }
+
+        public void UpdateDriveTrain(DriveTrain driveTrain)
+        {
+            _context.DriveTrains.Update(driveTrain);
+            Save();
+        }
+
+        public void DeleteDriveTrain(DriveTrain driveTrain)
+        {
+            _context.DriveTrains.Remove(driveTrain);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

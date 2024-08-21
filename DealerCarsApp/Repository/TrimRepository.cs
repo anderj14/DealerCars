@@ -26,5 +26,28 @@ namespace DealerCarsApp.Repository
         {
             return _context.Trims.OrderBy(t => t.Id == typeId).Any();
         }
+
+        public void CreateTrim(Trim trim)
+        {
+            _context.Trims.Add(trim);
+            Save();
+        }
+
+        public void UpdateTrim(Trim trim)
+        {
+            _context.Trims.Update(trim);
+            Save();
+        }
+
+        public void DeleteTrim(Trim trim)
+        {
+            _context.Trims.Remove(trim);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

@@ -25,5 +25,28 @@ namespace DealerCarsApp.Repository
         {
             return _context.Engines.Any(e => e.Id != engineId);
         }
+
+        public void CreateEngine(Engine engine)
+        {
+            _context.Engines.Add(engine);
+            Save();
+        }
+
+        public void UpdateEngine(Engine engine)
+        {
+            _context.Engines.Update(engine);
+            Save();
+        }
+
+        public void DeleteEngine(Engine engine)
+        {
+            _context.Engines.Remove(engine);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

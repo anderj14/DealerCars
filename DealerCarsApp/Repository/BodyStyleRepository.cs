@@ -28,5 +28,27 @@ namespace DealerCarsApp.Repository
             return _context.BodyStyles.Any(b => b.Id == id);
         }
 
+        public void CreateBodyStyle(BodyStyle bodyStyle)
+        {
+            _context.BodyStyles.Add(bodyStyle);
+            Save();
+        }
+
+        public void UpdateBodyStyle(BodyStyle bodyStyle)
+        {
+            _context.BodyStyles.Update(bodyStyle);
+            Save();
+        }
+
+        public void DeleteBodyStyle(BodyStyle bodyStyle)
+        {
+            _context.BodyStyles.Remove(bodyStyle);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

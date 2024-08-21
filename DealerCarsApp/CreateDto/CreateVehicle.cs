@@ -1,9 +1,9 @@
-﻿namespace DealerCarsApp.Model
+
+namespace DealerCarsApp.CreateDto
 {
-    public class Vehicle : BaseEntity
+    public class CreateVehicle
     {
         public string Name { get; set; }
-        public DateTime DateAdded { get; set; } = DateTime.Now;
         public string Owner { get; set; }
         public int Year { get; set; }
         public double Price { get; set; }
@@ -25,24 +25,11 @@
         public bool HasAutomaticEmergencyBraking { get; set; }
 
         public int BrandId { get; set; }
-        public Brand Brand { get; set; }
-
         public int ModelsId { get; set; }
-        public Models Models { get; set; }
-
         public int StatusId { get; set; }
-        public Status Status { get; set; }
-
         public int BodyStyleId { get; set; }
-        public BodyStyle BodyStyle { get; set; }
-
         public int EngineId { get; set; }
-        public Engine Engine { get; set; }
-
         public int DriveTrainId { get; set; }
-        public DriveTrain DriveTrain { get; set; }
-
         public int FuelId { get; set; }
-        public Fuel Fuel { get; set; }
     }
 }

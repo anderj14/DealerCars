@@ -3,6 +3,6 @@
     public class DriveTrainDto
     {
         public int Id { get; set; }
-        public string DriveTrainType { get; set; }
+        public string DriveTrainName { get; set; }
     }
 }

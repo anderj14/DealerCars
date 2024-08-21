@@ -10,7 +10,7 @@ namespace DealerCarsApp.Repository
 
         public StatusRepository(DataContext context)
         {
-            _context= context;
+            _context = context;
         }
 
         public ICollection<Status> GetStatuses()
@@ -25,6 +25,29 @@ namespace DealerCarsApp.Repository
         public bool StatusExists(int statusId)
         {
             return _context.Statuses.Any();
+        }
+
+        public void CreateStatus(Status status)
+        {
+            _context.Statuses.Add(status);
+            Save();
+        }
+
+        public void UpdateStatus(Status status)
+        {
+            _context.Statuses.Update(status);
+            Save();
+        }
+
+        public void DeleteStatus(Status status)
+        {
+            _context.Statuses.Remove(status);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

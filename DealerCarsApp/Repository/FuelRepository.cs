@@ -34,5 +34,28 @@ namespace DealerCarsApp.Repository
                            .Where(v => v.FuelId == fuelId)
                            .ToList();
         }
+
+        public void CreateFuel(Fuel fuel)
+        {
+            _context.Fuels.Add(fuel);
+            Save();
+        }
+
+        public void UpdateFuel(Fuel fuel)
+        {
+            _context.Fuels.Update(fuel);
+            Save();
+        }
+
+        public void DeleteFuel(Fuel fuel)
+        {
+            _context.Fuels.Remove(fuel);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

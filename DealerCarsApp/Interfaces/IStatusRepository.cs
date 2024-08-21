@@ -7,5 +7,10 @@ namespace DealerCarsApp.Interfaces
         ICollection<Status> GetStatuses();
         Status GetStatus(int statusId);
         bool StatusExists(int statusId);
+
+        void CreateStatus(Status status);
+        void UpdateStatus(Status status);
+        void DeleteStatus(Status status);
+        void Save();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using DealerCarsApp.CreateDto;
 using DealerCarsApp.Dto;
 using DealerCarsApp.Interfaces;
 using DealerCarsApp.Model;
-using DealerCarsApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DealerCarsApp.Controllers
@@ -44,6 +44,70 @@ namespace DealerCarsApp.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             return Ok(engine);
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateEngine([FromBody] CreateEngineDto createEngineDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var engine = _mapper.Map<Engine>(createEngineDto);
+
+            try
+            {
+                _engineRepository.CreateEngine(engine);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            var EngineDto = _mapper.Map<EngineDto>(engine);
+            return Ok(EngineDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateEngine(int id, CreateEngineDto updateEngineDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (!_engineRepository.EngineExists(id))
+                return NotFound();
+
+            var updateEngine = _mapper.Map<Engine>(updateEngineDto);
+            updateEngine.Id = id;
+
+            try
+            {
+                _engineRepository.UpdateEngine(updateEngine);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            var EngineDto = _mapper.Map<EngineDto>(updateEngine);
+
+            return Ok(EngineDto);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEngine(int id)
+        {
+            if (!_engineRepository.EngineExists(id))
+                return NotFound();
+
+            var engine = _engineRepository.GetEngine(id);
+
+            try
+            {
+                _engineRepository.DeleteEngine(engine);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
     }
 }

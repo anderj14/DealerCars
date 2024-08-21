@@ -48,5 +48,28 @@ namespace DealerCarsApp.Repositories
         {
             return _context.Brands.Any(b => b.Id == id);
         }
+
+        public void CreateBrand(Brand brand)
+        {
+            _context.Brands.Add(brand);
+            Save();
+        }
+
+        public void UpdateBrand(Brand brand)
+        {
+            _context.Brands.Update(brand);
+            Save();
+        }
+
+        public void DeleteBrand(Brand brand)
+        {
+            _context.Brands.Remove(brand);
+            Save();
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }
